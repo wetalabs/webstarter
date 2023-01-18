@@ -29,13 +29,16 @@ export function Meta({
 
       <meta name="description" content={description} />
 
-      <meta property="og:url" content={`${url}${path}`} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={imageUrl} />
+      <meta key="og:url" property="og:url" content={`${url}${path}`} />
+      <meta key="og:title" property="og:title" content={title} />
+      <meta key="og:description" property="og:description" content={description} />
+      <meta key="og:image" property="og:image" content={imageUrl} />
 
-      <meta name="twitter:site" content="" />
-      <meta name="twitter:card" content="" />
+      <meta key="twitter:site" name="twitter:site" content="@Wetez_stake" />
+      <meta key="twitter:card" name="twitter:card" content="summary_large_image"/>
+      <meta key="twitter:creator" name="twitter:creator" content="@Wetez_stake" />
+      <meta key="twitter:image" name="twitter:image" content={imageUrl} />
+
     </Head>
   );
 
