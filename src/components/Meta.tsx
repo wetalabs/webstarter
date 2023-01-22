@@ -9,6 +9,8 @@ type MetaProps = {
   image?: string;
   url?: string;
   pathname?: string;
+  name?: string;
+  type?: string
 };
 
 export function Meta({
@@ -17,6 +19,8 @@ export function Meta({
   image,
   url = "https://test.com",
   pathname,
+  name = 'test',
+  type = 'website',
 
 }:MetaProps){
   const router = useRouter();
@@ -33,6 +37,9 @@ export function Meta({
       <meta key="og:title" property="og:title" content={title} />
       <meta key="og:description" property="og:description" content={description} />
       <meta key="og:image" property="og:image" content={imageUrl} />
+      <meta key="og:type" property="og:type" content={type} />
+      <meta property="og:site_name" content={name} />
+
 
       <meta key="twitter:site" name="twitter:site" content="@Wetez_stake" />
       <meta key="twitter:card" name="twitter:card" content="summary_large_image"/>
