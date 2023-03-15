@@ -3,13 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "cross-env NODE_ENV=development next dev",
+    "build": "cross-env NODE_ENV=production next build",
+    "build:test": "cross-env NODE_ENV=test next build",
+    "start": "cross-env NODE_ENV=production next start",
+    "start:test": "cross-env NODE_ENV=test next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@mdx-js/react": "^2.1.5",
+    "@radix-ui/colors": "^0.1.8",
+    "@radix-ui/react-form": "^0.0.2",
+    "@radix-ui/react-popover": "1.0.5",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
