@@ -1,18 +1,20 @@
 import React from 'react';
 import { getMDXComponent } from 'mdx-bundler/client';
-import { MDXProvider, components } from '../../components/MDXComponents';
-import { getAllFrontmatter, getMdxBySlug } from '../../lib/mdx';
+import { MDXProvider, components } from '../../../components/Mdx/MDXComponents';
+import { getAllFrontmatter, getMdxBySlug } from '../../../lib/mdx';
 
-import type { Frontmatter } from '../../types/frontmatter';
+import type { Frontmatter } from '../../../types/frontmatter';
 
 type Doc = {
   frontmatter: Frontmatter;
   code: string;
 };
 
-export default function ArticleDoc({ code,frontmatter }: Doc){
+export default async function Page(context:any){
   
-  const Component = React.useMemo(() => getMDXComponent(code), [code]);
+  const {frontmatter,code} = await getMdxBySlug('article/', context.params.slug);
+
+  const Component = getMDXComponent(code);
 
   return(
     <>
@@ -49,17 +51,14 @@ export default function ArticleDoc({ code,frontmatter }: Doc){
 
 }
 
-export async function getStaticPaths() {
+export async function generateStaticParams() {
   const frontmatters = getAllFrontmatter('article');
-  return {
-    paths: frontmatters.map((frontmatter) => ({
-      params: { slug: frontmatter.slug.replace('article/', '') },
-    })),
-    fallback: false,
-  };
+  return frontmatters.map((frontmatter) => ({
+      slug: frontmatter.slug.replace('article/', '')
+    }))
 }
 
-export async function getStaticProps(context:any) {
-  const { frontmatter, code } = await getMdxBySlug('article/', context.params.slug);
-  return { props: { frontmatter, code } };
-}
+// export async function getParams(context:any) {
+//   const {frontmatter,code} = await getMdxBySlug('article/', context.params.slug);
+//   return {frontmatter,code};
+// }
