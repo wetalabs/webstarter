@@ -1,18 +1,20 @@
-import React from 'react';
-import { getMDXComponent } from 'mdx-bundler/client';
-import { MDXProvider, components } from '../../../components/Mdx/MDXComponents';
-import { getAllFrontmatter, getMdxBySlug } from '../../../lib/mdx';
+'use client';
 
-import type { Frontmatter } from '../../../types/frontmatter';
+import * as React from 'react';
+import { getMDXComponent } from 'mdx-bundler/client';
+import { MDXProvider, components } from './MDXComponents';
+import { getAllFrontmatter, getMdxBySlug } from '../../lib/mdx';
+
+import type { Frontmatter } from '../../types/frontmatter';
 
 type Doc = {
   frontmatter: Frontmatter;
   code: string;
 };
 
-export default async function Page(context:any){
+export default async function Article(params:any){
   
-  const {frontmatter,code} = await getMdxBySlug('article/', context.params.slug);
+  const { frontmatter, code } = await getArticle(params);
 
   const Component = getMDXComponent(code);
 
@@ -48,7 +50,6 @@ export default async function Page(context:any){
     </>
   )
 
-
 }
 
 export async function generateStaticParams() {
@@ -58,7 +59,7 @@ export async function generateStaticParams() {
     }))
 }
 
-// export async function getParams(context:any) {
-//   const {frontmatter,code} = await getMdxBySlug('article/', context.params.slug);
-//   return {frontmatter,code};
-// }
+export async function getArticle(params:any) {
+   const {frontmatter,code} = await getMdxBySlug('article/', params.params.slug);
+   return {frontmatter,code};
+ }
